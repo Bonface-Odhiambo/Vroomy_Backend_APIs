@@ -1,170 +1,126 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2024-05-21T12:00:00.000Z",
-  "__export_source": "vroomy-api-generator-complete",
+  "__export_date": "2024-05-21T14:00:00.000Z",
+  "__export_source": "vroomy-api-generator-full",
   "resources": [
     {
-      "_id": "wrk_vroomy_complete",
+      "_id": "wrk_vroomy_full",
       "parentId": null,
-      "name": "Vroomy Insurance Platform API (Complete)",
+      "name": "Vroomy Insurance Platform API (Full)",
       "scope": "collection",
       "_type": "workspace"
     },
     {
-      "_id": "env_base_vroomy",
-      "parentId": "wrk_vroomy_complete",
+      "_id": "env_base_vroomy_full",
+      "parentId": "wrk_vroomy_full",
       "name": "Base Environment",
-      "data": {
-        "baseUrl": "http://localhost:8080",
-        "authToken": ""
-      },
+      "data": { "baseUrl": "http://localhost:8080", "authToken": "" },
       "_type": "environment"
     },
     {
       "_id": "fld_superadmin",
-      "parentId": "wrk_vroomy_complete",
-      "name": "SuperAdmin Controller",
-      "description": "Endpoints for managing Admins (SuperAdmin access only)",
-      "_type": "request_group"
+      "parentId": "wrk_vroomy_full", "name": "SuperAdmin Controller", "_type": "request_group"
     },
     {
-      "_id": "req_superadmin_create_admin",
-      "parentId": "fld_superadmin",
-      "name": "POST Create Admin",
-      "url": "{{ _.baseUrl }}/api/v1/superadmin/admins",
-      "method": "POST",
-      "body": {
-        "mimeType": "application/json",
-        "text": "{\n\t\"fullName\": \"Wilson Admin\",\n\t\"email\": \"wilson@databucket.ke\",\n\t\"phone\": \"0700000000\"\n}"
-      },
-      "headers": [{ "name": "Content-Type", "value": "application/json" }],
-      "authentication": { "type": "bearer", "token": "{{ _.authToken }}" },
-      "_type": "request"
+      "_id": "req_sa_create_admin", "parentId": "fld_superadmin", "name": "POST Create Admin", "url": "{{ _.baseUrl }}/api/v1/superadmin/admins", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"fullName\": \"Wilson Admin\",\n\t\"email\": \"wilson@databucket.ke\",\n\t\"phone\": \"0700000000\"\n}" }, "headers": [{ "name": "Content-Type", "value": "application/json" }], "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request"
     },
     {
-      "_id": "req_superadmin_update_admin_status",
-      "parentId": "fld_superadmin",
-      "name": "PATCH Update Admin Status",
-      "url": "{{ _.baseUrl }}/api/v1/superadmin/admins/1/status",
-      "method": "PATCH",
-      "body": {
-        "mimeType": "application/json",
-        "text": "{\n\t\"status\": \"SUSPENDED\"\n}"
-      },
-      "headers": [{ "name": "Content-Type", "value": "application/json" }],
-      "authentication": { "type": "bearer", "token": "{{ _.authToken }}" },
-      "_type": "request"
-    },
-    {
-      "_id": "fld_admin",
-      "parentId": "wrk_vroomy_complete",
-      "name": "Admin Controller",
-      "_type": "request_group"
-    },
-    {
-      "_id": "req_admin_approve_superagent",
-      "parentId": "fld_admin",
-      "name": "PATCH Approve Superagent",
-      "url": "{{ _.baseUrl }}/api/v1/admin/superagents/2/approve",
-      "method": "PATCH",
-      "body": {},
-      "authentication": { "type": "bearer", "token": "{{ _.authToken }}" },
-      "_type": "request"
-    },
-    {
-      "_id": "req_admin_update_user_status",
-      "parentId": "fld_admin",
-      "name": "PATCH Update User Status",
-      "url": "{{ _.baseUrl }}/api/v1/admin/users/2/status",
-      "method": "PATCH",
-      "body": {"mimeType": "application/json", "text": "{\n\t\"status\": \"SUSPENDED\"\n}"},
-      "headers": [{"name": "Content-Type", "value": "application/json"}],
-      "authentication": { "type": "bearer", "token": "{{ _.authToken }}" },
-      "_type": "request"
-    },
-    {
-      "_id": "req_admin_get_users",
-      "parentId": "fld_admin",
-      "name": "GET All Users",
-      "url": "{{ _.baseUrl }}/api/v1/admin/users",
-      "method": "GET",
-      "authentication": { "type": "bearer", "token": "{{ _.authToken }}" },
-      "_type": "request"
-    },
-    {
-      "_id": "req_admin_get_user_by_id",
-      "parentId": "fld_admin",
-      "name": "GET User by ID",
-      "url": "{{ _.baseUrl }}/api/v1/admin/users/1",
-      "method": "GET",
-      "authentication": { "type": "bearer", "token": "{{ _.authToken }}" },
-      "_type": "request"
-    },
-    {
-      "_id": "req_admin_create_company",
-      "parentId": "fld_admin",
-      "name": "POST Create Company",
-      "url": "{{ _.baseUrl }}/api/v1/admin/companies",
-      "method": "POST",
-      "body": {"mimeType": "application/json", "text": "{\n\t\"name\": \"APA Insurance\",\n\t\"iraNumber\": \"IRA/01/55555\"\n}"},
-      "headers": [{"name": "Content-Type", "value": "application/json"}],
-      "authentication": { "type": "bearer", "token": "{{ _.authToken }}" },
-      "_type": "request"
-    },
-    {
-      "_id": "fld_auth",
-      "parentId": "wrk_vroomy_complete",
-      "name": "Auth Controller",
-      "_type": "request_group"
-    },
-    {
-      "_id": "req_auth_register_superagent",
-      "parentId": "fld_auth",
-      "name": "POST Register Superagent",
-      "url": "{{ _.baseUrl }}/api/v1/auth/register",
-      "method": "POST",
-      "body": {
-        "mimeType": "application/json",
-        "text": "{\n\t\"fullName\": \"TopTier Agency\",\n\t\"email\": \"super.one@agency.com\",\n\t\"phone\": \"0711223344\",\n\t\"password\": \"SuperSecure123!\",\n\t\"role\": \"SUPERAGENT\",\n\t\"iraNumber\": \"VALID/S/001\",\n\t\"kraPin\": \"A001234567X\",\n\t\"paybillNumber\": \"522522\"\n}"
-      },
-      "headers": [{ "name": "Content-Type", "value": "application/json" }],
-      "authentication": {},
-      "_type": "request"
-    },
-    {
-      "_id": "req_auth_login",
-      "parentId": "fld_auth",
-      "name": "POST Login",
-      "url": "{{ _.baseUrl }}/api/v1/auth/login",
-      "method": "POST",
-      "body": {"mimeType": "application/json", "text": "{\n\t\"email\": \"user@example.com\",\n\t\"password\": \"Password123\"\n}"},
-      "headers": [{"name": "Content-Type", "value": "application/json"}],
-      "authentication": {},
-      "_type": "request"
+      "_id": "req_sa_update_admin_status", "parentId": "fld_superadmin", "name": "PATCH Update Admin Status", "url": "{{ _.baseUrl }}/api/v1/superadmin/admins/1/status", "method": "PATCH", "body": { "mimeType": "application/json", "text": "{\n\t\"status\": \"SUSPENDED\"\n}" }, "headers": [{ "name": "Content-Type", "value": "application/json" }], "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request"
     },
     {
       "_id": "fld_superagent",
-      "parentId": "wrk_vroomy_complete",
-      "name": "Superagent Controller",
-      "_type": "request_group"
+      "parentId": "wrk_vroomy_full", "name": "Superagent Controller", "_type": "request_group"
     },
-    {
-      "_id": "req_superagent_create_agent",
-      "parentId": "fld_superagent",
-      "name": "POST Create Agent",
-      "url": "{{ _.baseUrl }}/api/v1/superagents/my-agents",
-      "method": "POST",
-      "body": {"mimeType": "application/json", "text": "{\n\t\"fullName\": \"Jane Doe Agent\",\n\t\"email\": \"agent.one@agency.com\",\n\t\"phone\": \"0722334455\"\n}"},
-      "headers": [{"name": "Content-Type", "value": "application/json"}],
-      "authentication": { "type": "bearer", "token": "{{ _.authToken }}" },
-      "_type": "request"
-    },
+    { "_id": "req_sagt_update_prod", "parentId": "fld_superagent", "name": "PUT Update Product", "url": "{{ _.baseUrl }}/api/v1/superagents/products/1", "method": "PUT", "body": { "mimeType": "application/json", "text": "{\n\t\"name\": \"Updated Motor Cover\",\n\t\"companyId\": 1,\n\t\"rate\": 5.0,\n\t\"calculationType\": \"PERCENTAGE_OF_VALUE\"\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_delete_prod", "parentId": "fld_superagent", "name": "DELETE Product", "url": "{{ _.baseUrl }}/api/v1/superagents/products/1", "method": "DELETE", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_get_me", "parentId": "fld_superagent", "name": "GET My Profile", "url": "{{ _.baseUrl }}/api/v1/superagents/me", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_update_me", "parentId": "fld_superagent", "name": "PUT Update My Profile", "url": "{{ _.baseUrl }}/api/v1/superagents/me", "method": "PUT", "body": { "mimeType": "application/json", "text": "{\n\t\"fullName\": \"TopTier Updated\"\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_update_lead", "parentId": "fld_superagent", "name": "PUT Update Lead", "url": "{{ _.baseUrl }}/api/v1/superagents/leads/1", "method": "PUT", "body": { "mimeType": "application/json", "text": "{\n\t\"status\": \"CONTACTED\"\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_delete_lead", "parentId": "fld_superagent", "name": "DELETE Lead", "url": "{{ _.baseUrl }}/api/v1/superagents/leads/1", "method": "DELETE", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_get_products", "parentId": "fld_superagent", "name": "GET My Products", "url": "{{ _.baseUrl }}/api/v1/superagents/products", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_create_product", "parentId": "fld_superagent", "name": "POST Create Product", "url": "{{ _.baseUrl }}/api/v1/superagents/products", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"name\": \"Motor Private - Comprehensive\",\n\t\"companyId\": 1,\n\t\"rate\": 4.5,\n\t\"calculationType\": \"PERCENTAGE_OF_VALUE\"\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_approve_payout", "parentId": "fld_superagent", "name": "POST Approve Payout", "url": "{{ _.baseUrl }}/api/v1/superagents/payouts/approve", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"transactionId\": 1\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_get_my_agents", "parentId": "fld_superagent", "name": "GET My Agents", "url": "{{ _.baseUrl }}/api/v1/superagents/my-agents", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_create_agent", "parentId": "fld_superagent", "name": "POST Create Agent", "url": "{{ _.baseUrl }}/api/v1/superagents/my-agents", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"fullName\": \"Jane Doe Agent\",\n\t\"email\": \"agent.one@agency.com\",\n\t\"phone\": \"0722334455\"\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_get_leads", "parentId": "fld_superagent", "name": "GET My Leads", "url": "{{ _.baseUrl }}/api/v1/superagents/leads", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_create_lead", "parentId": "fld_superagent", "name": "POST Create Lead", "url": "{{ _.baseUrl }}/api/v1/superagents/leads", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"customerName\": \"Test Customer\",\n\t\"customerPhone\": \"0788990011\"\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_update_agent_status", "parentId": "fld_superagent", "name": "PATCH Update Agent Status", "url": "{{ _.baseUrl }}/api/v1/superagents/my-agents/3/status", "method": "PATCH", "body": { "mimeType": "application/json", "text": "{\n\t\"status\": \"INACTIVE\"\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_update_claim_status", "parentId": "fld_superagent", "name": "PATCH Update Claim Status", "url": "{{ _.baseUrl }}/api/v1/superagents/claims/1/status", "method": "PATCH", "body": { "mimeType": "application/json", "text": "{\n\t\"status\": \"APPROVED\"\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_get_policy_docs", "parentId": "fld_superagent", "name": "GET Policy Documents", "url": "{{ _.baseUrl }}/api/v1/superagents/policies/1/documents", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_get_pending_payouts", "parentId": "fld_superagent", "name": "GET Pending Payouts", "url": "{{ _.baseUrl }}/api/v1/superagents/payouts/pending", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_get_dashboard", "parentId": "fld_superagent", "name": "GET Dashboard Metrics", "url": "{{ _.baseUrl }}/api/v1/superagents/dashboard/metrics", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_get_claims", "parentId": "fld_superagent", "name": "GET My Claims", "url": "{{ _.baseUrl }}/api/v1/superagents/claims", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_get_cert_stock", "parentId": "fld_superagent", "name": "GET Certificate Stock", "url": "{{ _.baseUrl }}/api/v1/superagents/certificate-stock", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_get_agent_txns", "parentId": "fld_superagent", "name": "GET Agent Transactions", "url": "{{ _.baseUrl }}/api/v1/superagents/agent-transactions", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_sagt_get_agent_renewals", "parentId": "fld_superagent", "name": "GET Agent Renewals", "url": "{{ _.baseUrl }}/api/v1/superagents/agent-renewals", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
     {
       "_id": "fld_agent",
-      "parentId": "wrk_vroomy_complete",
-      "name": "Agent Controller",
-      "_type": "request_group"
-    }
+      "parentId": "wrk_vroomy_full", "name": "Agent Controller", "_type": "request_group"
+    },
+    { "_id": "req_agt_get_me", "parentId": "fld_agent", "name": "GET My Profile", "url": "{{ _.baseUrl }}/api/v1/agents/me", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_agt_update_me", "parentId": "fld_agent", "name": "PUT Update My Profile", "url": "{{ _.baseUrl }}/api/v1/agents/me", "method": "PUT", "body": { "mimeType": "application/json", "text": "{\n\t\"fullName\": \"Jane Doe Updated\"\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_agt_withdraw", "parentId": "fld_agent", "name": "POST Request Withdrawal", "url": "{{ _.baseUrl }}/api/v1/agents/wallet/withdraw", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"amount\": 500.00\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_agt_get_policies", "parentId": "fld_agent", "name": "GET My Policies", "url": "{{ _.baseUrl }}/api/v1/agents/policies", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_agt_create_policy", "parentId": "fld_agent", "name": "POST Create Policy", "url": "{{ _.baseUrl }}/api/v1/agents/policies", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"productId\": 1,\n\t\"clientFullName\": \"Test Client\",\n\t\"insuredValue\": 1200000\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_agt_upload_doc", "parentId": "fld_agent", "name": "POST Upload Policy Document", "url": "{{ _.baseUrl }}/api/v1/agents/policies/1/documents", "method": "POST", "body": { "mimeType": "multipart/form-data", "params": [{ "name": "file", "type": "file", "fileName": "" }, { "name": "documentType", "value": "LOGBOOK" }] }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_agt_get_claims", "parentId": "fld_agent", "name": "GET My Claims", "url": "{{ _.baseUrl }}/api/v1/agents/claims", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_agt_raise_claim", "parentId": "fld_agent", "name": "POST Raise Claim", "url": "{{ _.baseUrl }}/api/v1/agents/claims", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"policyId\": 1,\n\t\"description\": \"Minor bumper damage.\"\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_agt_get_wallet", "parentId": "fld_agent", "name": "GET My Wallet", "url": "{{ _.baseUrl }}/api/v1/agents/wallet", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_agt_get_txns", "parentId": "fld_agent", "name": "GET My Transactions", "url": "{{ _.baseUrl }}/api/v1/agents/transactions", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_agt_get_products", "parentId": "fld_agent", "name": "GET Available Products", "url": "{{ _.baseUrl }}/api/v1/agents/products", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_agt_get_policy_by_id", "parentId": "fld_agent", "name": "GET Policy by ID", "url": "{{ _.baseUrl }}/api/v1/agents/policies/1", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_agt_download_cert", "parentId": "fld_agent", "name": "GET Download Certificate", "url": "{{ _.baseUrl }}/api/v1/agents/policies/1/certificate", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_agt_get_renewals", "parentId": "fld_agent", "name": "GET My Renewals", "url": "{{ _.baseUrl }}/api/v1/agents/policies/renewals", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_agt_get_claim_by_id", "parentId": "fld_agent", "name": "GET Claim by ID", "url": "{{ _.baseUrl }}/api/v1/agents/claims/1", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    {
+      "_id": "fld_admin",
+      "parentId": "wrk_vroomy_full", "name": "Admin Controller", "_type": "request_group"
+    },
+    { "_id": "req_admin_get_config", "parentId": "fld_admin", "name": "GET Global Config", "url": "{{ _.baseUrl }}/api/v1/admin/config", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_admin_update_config", "parentId": "fld_admin", "name": "PUT Update Global Config", "url": "{{ _.baseUrl }}/api/v1/admin/config", "method": "PUT", "body": { "mimeType": "application/json", "text": "{\n\t\"taxRate\": 16.5\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_admin_get_company_by_id", "parentId": "fld_admin", "name": "GET Company by ID", "url": "{{ _.baseUrl }}/api/v1/admin/companies/1", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_admin_update_company", "parentId": "fld_admin", "name": "PUT Update Company", "url": "{{ _.baseUrl }}/api/v1/admin/companies/1", "method": "PUT", "body": { "mimeType": "application/json", "text": "{\n\t\"name\": \"APA Insurance Updated\"\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_admin_delete_company", "parentId": "fld_admin", "name": "DELETE Company by ID", "url": "{{ _.baseUrl }}/api/v1/admin/companies/1", "method": "DELETE", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_admin_set_tax", "parentId": "fld_admin", "name": "POST Set Tax Rate", "url": "{{ _.baseUrl }}/api/v1/admin/config/tax", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"taxRate\": 16.0\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_admin_get_companies", "parentId": "fld_admin", "name": "GET All Companies", "url": "{{ _.baseUrl }}/api/v1/admin/companies", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_admin_create_company", "parentId": "fld_admin", "name": "POST Create Company", "url": "{{ _.baseUrl }}/api/v1/admin/companies", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"name\": \"APA Insurance\",\n\t\"iraNumber\": \"IRA/01/55555\"\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_admin_gen_api_key", "parentId": "fld_admin", "name": "POST Generate API Key for Company", "url": "{{ _.baseUrl }}/api/v1/admin/companies/1/generate-key", "method": "POST", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_admin_add_cert_stock", "parentId": "fld_admin", "name": "POST Add Certificate Stock", "url": "{{ _.baseUrl }}/api/v1/admin/certificate-stock", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"superagentId\": 2,\n\t\"companyId\": 1,\n\t\"productClass\": \"MOTOR_PRIVATE\",\n\t\"quantity\": 1000\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_admin_update_user_status", "parentId": "fld_admin", "name": "PATCH Update User Status", "url": "{{ _.baseUrl }}/api/v1/admin/users/2/status", "method": "PATCH", "body": { "mimeType": "application/json", "text": "{\n\t\"status\": \"SUSPENDED\"\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_admin_approve_superagent", "parentId": "fld_admin", "name": "PATCH Approve Superagent", "url": "{{ _.baseUrl }}/api/v1/admin/superagents/2/approve", "method": "PATCH", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_admin_get_users", "parentId": "fld_admin", "name": "GET All Users", "url": "{{ _.baseUrl }}/api/v1/admin/users", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_admin_get_user_by_id", "parentId": "fld_admin", "name": "GET User by ID", "url": "{{ _.baseUrl }}/api/v1/admin/users/1", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_admin_get_report_csv", "parentId": "fld_admin", "name": "GET Transaction Report (CSV)", "url": "{{ _.baseUrl }}/api/v1/admin/reports/transactions.csv", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_admin_get_dashboard", "parentId": "fld_admin", "name": "GET Dashboard Metrics", "url": "{{ _.baseUrl }}/api/v1/admin/dashboard/metrics", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    {
+      "_id": "fld_payment",
+      "parentId": "wrk_vroomy_full", "name": "Payment Controller", "_type": "request_group"
+    },
+    { "_id": "req_pay_stk_push", "parentId": "fld_payment", "name": "POST STK Push", "url": "{{ _.baseUrl }}/api/v1/payments/stk-push", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"policyId\": 1,\n\t\"phoneNumber\": \"254712345678\"\n}" }, "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_pay_mpesa_callback", "parentId": "fld_payment", "name": "POST M-Pesa Callback", "url": "{{ _.baseUrl }}/api/v1/payments/mpesa-callback", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"Body\": {\n\t\t\"stkCallback\": {}\n\t}\n}" }, "authentication": {}, "_type": "request" },
+    { "_id": "req_pay_b2c_timeout", "parentId": "fld_payment", "name": "POST B2C Timeout", "url": "{{ _.baseUrl }}/api/v1/payments/b2c-timeout", "method": "POST", "authentication": {}, "_type": "request" },
+    { "_id": "req_pay_b2c_result", "parentId": "fld_payment", "name": "POST B2C Result", "url": "{{ _.baseUrl }}/api/v1/payments/b2c-result", "method": "POST", "authentication": {}, "_type": "request" },
+    { "_id": "req_pay_get_paybill", "parentId": "fld_payment", "name": "GET Paybill Details", "url": "{{ _.baseUrl }}/api/v1/payments/policy/1/paybill-details", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    {
+      "_id": "fld_auth",
+      "parentId": "wrk_vroomy_full", "name": "Auth Controller", "_type": "request_group"
+    },
+    { "_id": "req_auth_reset_pass", "parentId": "fld_auth", "name": "POST Reset Password", "url": "{{ _.baseUrl }}/api/v1/auth/reset-password", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"token\": \"...\",\n\t\"newPassword\": \"...\"\n}" }, "authentication": {}, "_type": "request" },
+    { "_id": "req_auth_register", "parentId": "fld_auth", "name": "POST Register Superagent", "url": "{{ _.baseUrl }}/api/v1/auth/register", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"fullName\": \"TopTier Agency\",\n\t\"email\": \"super.one@agency.com\",\n\t\"phone\": \"0711223344\",\n\t\"password\": \"SuperSecure123!\",\n\t\"role\": \"SUPERAGENT\",\n\t\"iraNumber\": \"VALID/S/001\",\n\t\"kraPin\": \"A001234567X\",\n\t\"paybillNumber\": \"522522\"\n}" }, "authentication": {}, "_type": "request" },
+    { "_id": "req_auth_refresh_token", "parentId": "fld_auth", "name": "POST Refresh Token", "url": "{{ _.baseUrl }}/api/v1/auth/refresh-token", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"refreshToken\": \"...\"\n}" }, "authentication": {}, "_type": "request" },
+    { "_id": "req_auth_logout", "parentId": "fld_auth", "name": "POST Logout", "url": "{{ _.baseUrl }}/api/v1/auth/logout", "method": "POST", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    { "_id": "req_auth_login", "parentId": "fld_auth", "name": "POST Login", "url": "{{ _.baseUrl }}/api/v1/auth/login", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"email\": \"superadmin@vroomy.com\",\n\t\"password\": \"VroomySuperAdmin123!!!\"\n}" }, "authentication": {}, "_type": "request" },
+    { "_id": "req_auth_forgot_pass", "parentId": "fld_auth", "name": "POST Forgot Password", "url": "{{ _.baseUrl }}/api/v1/auth/forgot-password", "method": "POST", "body": { "mimeType": "application/json", "text": "{\n\t\"email\": \"user@example.com\"\n}" }, "authentication": {}, "_type": "request" },
+    {
+      "_id": "fld_notification",
+      "parentId": "wrk_vroomy_full", "name": "Notification Controller", "_type": "request_group"
+    },
+    { "_id": "req_notif_get", "parentId": "fld_notification", "name": "GET My Notifications", "url": "{{ _.baseUrl }}/api/v1/notifications", "method": "GET", "authentication": { "type": "bearer", "token": "{{ _.authToken }}" }, "_type": "request" },
+    {
+      "_id": "fld_datasharing",
+      "parentId": "wrk_vroomy_full", "name": "Data Sharing Controller", "_type": "request_group"
+    },
+    { "_id": "req_data_get_txns", "parentId": "fld_datasharing", "name": "GET Shared Transactions", "url": "{{ _.baseUrl }}/api/v1/data-sharing/transactions", "method": "GET", "headers": [{ "name": "X-API-KEY", "value": "your-api-key" }], "authentication": {}, "_type": "request" }
   ]
 }
