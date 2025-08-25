@@ -1,157 +1,726 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2024-05-22T10:00:00.000Z",
-  "__export_source": "vroomy-api-updated-collection",
+  "__export_date": "2023-10-27T10:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
   "resources": [
     {
-      "_id": "wrk_vroomy_insurance_platform_v2",
+      "_id": "wrk_1",
       "parentId": null,
-      "name": "Vroomy Insurance Platform API (Updated)",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "name": "Vroomy Insurance Platform",
+      "description": "",
       "scope": "collection",
       "_type": "workspace"
     },
     {
-      "_id": "env_base_vroomy_v2",
-      "parentId": "wrk_vroomy_insurance_platform_v2",
-      "name": "Base Environment",
-      "data": {
-        "baseUrl": "http://localhost:8080",
-        "authToken": ""
-      },
-      "_type": "environment"
-    },
-    {
-      "_id": "fld_auth",
-      "parentId": "wrk_vroomy_insurance_platform_v2",
-      "name": "1. Auth Controller",
+      "_id": "req_grp_auth",
+      "parentId": "wrk_1",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "name": "Auth Controller",
+      "description": "User registration, login, and session management.",
+      "environment": {},
+      "environmentPropertyOrder": null,
       "_type": "request_group"
     },
     {
-      "_id": "req_auth_login",
-      "parentId": "fld_auth",
-      "name": "POST Login",
-      "url": "{{ _.baseUrl }}/api/v1/auth/login",
-      "method": "POST",
-      "body": {
-        "mimeType": "application/json",
-        "text": "{\n\t\"email\": \"superadmin@vroomy.com\",\n\t\"password\": \"VroomySuperAdmin123!!!\"\n}"
-      },
-      "headers": [{"name": "Content-Type", "value": "application/json"}],
-      "_type": "request"
-    },
-    {
       "_id": "req_auth_register",
-      "parentId": "fld_auth",
-      "name": "POST Register Superagent",
+      "parentId": "req_grp_auth",
+      "modified": 1698399600000,
+      "created": 1698399600000,
       "url": "{{ _.baseUrl }}/api/v1/auth/register",
+      "name": "Register User (Superagent/Agent)",
+      "description": "Registers a new user. Role can be SUPERAGENT or AGENT. Admin is created via a different mechanism (e.g., DB seed).",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"fullName\": \"TopTier Agency\",\n\t\"email\": \"super.one@agency.com\",\n\t\"phone\": \"0711223344\",\n\t\"password\": \"SuperSecure123!\",\n\t\"role\": \"SUPERAGENT\",\n\t\"iraNumber\": \"VALID/S/001\",\n\t\"kraPin\": \"A001234567X\",\n\t\"paybillNumber\": \"522522\"\n}"
+        "text": "{\n\t\"fullName\": \"John Doe Superagent\",\n\t\"email\": \"superagent@example.com\",\n\t\"phone\": \"+254712345678\",\n\t\"password\": \"stringPassword123\",\n\t\"role\": \"SUPERAGENT\",\n\t\"iraNumber\": \"IRA-12345\",\n\t\"kraPin\": \"A001234567Z\"\n}"
       },
-      "headers": [{"name": "Content-Type", "value": "application/json"}],
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -100,
       "_type": "request"
     },
     {
-      "_id": "fld_superadmin",
-      "parentId": "wrk_vroomy_insurance_platform_v2",
-      "name": "2. SuperAdmin Controller",
+      "_id": "req_auth_login",
+      "parentId": "req_grp_auth",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/auth/login",
+      "name": "Login",
+      "description": "Authenticates a user and returns a JWT token. The token is automatically saved to the `jwt_token` environment variable.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"superadmin@vroomy.com\",\n\t\"password\": \"superadminpass\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -90,
+      "_type": "request"
+    },
+    {
+      "_id": "req_grp_superadmin",
+      "parentId": "wrk_1",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "name": "SuperAdmin Controller",
+      "description": "Endpoints for SuperAdmins to manage Platform Admins.",
+      "environment": {},
       "_type": "request_group"
     },
     {
       "_id": "req_superadmin_create_admin",
-      "parentId": "fld_superadmin",
-      "name": "POST Create Admin",
+      "parentId": "req_grp_superadmin",
+      "modified": 1698399600000,
+      "created": 1698399600000,
       "url": "{{ _.baseUrl }}/api/v1/superadmin/admins",
+      "name": "Create a new Platform Admin",
+      "description": "Creates a new user with the ADMIN role.",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"fullName\": \"Wilson Admin\",\n\t\"email\": \"wilson@databucket.ke\",\n\t\"phone\": \"0700000000\"\n}"
+        "text": "{\n\t\"fullName\": \"Platform Admin One\",\n\t\"email\": \"admin@vroomy.com\",\n\t\"phone\": \"+254700000001\",\n\t\"password\": \"adminPass123\"\n}"
       },
-      "headers": [{"name": "Content-Type", "value": "application/json"}],
-      "authentication": {"type": "bearer", "token": "{{ _.authToken }}"},
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -100,
       "_type": "request"
     },
     {
       "_id": "req_superadmin_update_status",
-      "parentId": "fld_superadmin",
-      "name": "PATCH Update Admin Status",
-      "url": "{{ _.baseUrl }}/api/v1/superadmin/admins/1/status",
+      "parentId": "req_grp_superadmin",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/superadmin/admins/{{ _.adminId }}/status",
+      "name": "Activate/Deactivate Admin",
+      "description": "Updates the status of a Platform Admin.",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"status\": \"INACTIVE\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -90,
+      "_type": "request"
+    },
+    {
+      "_id": "req_grp_admin",
+      "parentId": "wrk_1",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "name": "Admin Controller",
+      "description": "Platform-wide management for Admins.",
+      "environment": {},
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_admin_create_company",
+      "parentId": "req_grp_admin",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/admin/companies",
+      "name": "Create Insurance Company",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"name\": \"Jubilee Insurance\",\n\t\"ira_number\": \"IRA-JUB-001\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_admin_set_tax",
+      "parentId": "req_grp_admin",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/admin/config/tax",
+      "name": "Set Global Tax Rate",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"taxRate\": 16.5\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_admin_approve_superagent",
+      "parentId": "req_grp_admin",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/admin/superagents/{{ _.superagentId }}/approve",
+      "name": "Approve Superagent Registration",
+      "method": "PATCH",
+      "body": {},
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_admin_update_user_status",
+      "parentId": "req_grp_admin",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/admin/users/{{ _.userId }}/status",
+      "name": "Activate/Suspend User",
       "method": "PATCH",
       "body": {
         "mimeType": "application/json",
         "text": "{\n\t\"status\": \"SUSPENDED\"\n}"
       },
-      "headers": [{"name": "Content-Type", "value": "application/json"}],
-      "authentication": {"type": "bearer", "token": "{{ _.authToken }}"},
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
       "_type": "request"
     },
     {
-      "_id": "fld_admin",
-      "parentId": "wrk_vroomy_insurance_platform_v2",
-      "name": "3. Admin Controller",
+      "_id": "req_admin_get_csv",
+      "parentId": "req_grp_admin",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/admin/reports/transactions.csv",
+      "name": "Export All Transactions (CSV)",
+      "method": "GET",
+      "body": {},
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_grp_superagent",
+      "parentId": "wrk_1",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "name": "Superagent Controller",
+      "description": "Endpoints for Superagents to manage their agents, products, and operations.",
+      "environment": {},
       "_type": "request_group"
     },
     {
-      "_id": "req_admin_approve_superagent",
-      "parentId": "fld_admin",
-      "name": "PATCH Approve Superagent",
-      "url": "{{ _.baseUrl }}/api/v1/admin/superagents/2/approve",
-      "method": "PATCH",
-      "authentication": {"type": "bearer", "token": "{{ _.authToken }}"},
-      "_type": "request"
-    },
-    {
-      "_id": "req_admin_create_company",
-      "parentId": "fld_admin",
-      "name": "POST Create Company",
-      "url": "{{ _.baseUrl }}/api/v1/admin/companies",
+      "_id": "req_superagent_add_product",
+      "parentId": "req_grp_superagent",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/superagents/products",
+      "name": "Add Insurance Product",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"name\": \"APA Insurance\",\n\t\"iraNumber\": \"IRA/01/55555\"\n}"
+        "text": "{\n\t\"productName\": \"Motor Private Comprehensive\",\n\t\"rate\": 4.5,\n\t\"companyId\": \"{{ _.companyId }}\"\n}"
       },
-      "authentication": {"type": "bearer", "token": "{{ _.authToken }}"},
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
       "_type": "request"
     },
     {
-      "_id": "fld_superagent",
-      "parentId": "wrk_vroomy_insurance_platform_v2",
-      "name": "4. Superagent Controller",
-      "_type": "request_group"
-    },
-    {
-      "_id": "req_sagt_create_agent",
-      "parentId": "fld_superagent",
-      "name": "POST Create Agent",
+      "_id": "req_superagent_create_agent",
+      "parentId": "req_grp_superagent",
+      "modified": 1698399600000,
+      "created": 1698399600000,
       "url": "{{ _.baseUrl }}/api/v1/superagents/my-agents",
+      "name": "Create an Agent",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"fullName\": \"Jane Doe Agent\",\n\t\"email\": \"agent.one@agency.com\",\n\t\"phone\": \"0722334455\"\n}"
+        "text": "{\n\t\"fullName\": \"Jane Agent\",\n\t\"email\": \"jane.agent@example.com\",\n\t\"phone\": \"+254798765432\",\n\t\"password\": \"agentPass123\"\n}"
       },
-      "authentication": {"type": "bearer", "token": "{{ _.authToken }}"},
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
       "_type": "request"
     },
     {
-      "_id": "fld_agent",
-      "parentId": "wrk_vroomy_insurance_platform_v2",
-      "name": "5. Agent Controller",
+      "_id": "req_superagent_update_agent_status",
+      "parentId": "req_grp_superagent",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/superagents/my-agents/{{ _.agentUserId }}/status",
+      "name": "Activate/Suspend Agent",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"status\": \"ACTIVE\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_superagent_view_agent_transactions",
+      "parentId": "req_grp_superagent",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/superagents/agent-transactions",
+      "name": "View Transactions by Agents",
+      "method": "GET",
+      "body": {},
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_superagent_handle_claim",
+      "parentId": "req_grp_superagent",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/superagents/claims/{{ _.claimId }}/status",
+      "name": "Handle/Update Claim Status",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"status\": \"UNDER_REVIEW\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_grp_agent",
+      "parentId": "wrk_1",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "name": "Agent Controller",
+      "description": "Endpoints for Agents to sell policies, manage clients, and track earnings.",
+      "environment": {},
       "_type": "request_group"
+    },
+    {
+      "_id": "req_agent_view_products",
+      "parentId": "req_grp_agent",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/agents/products",
+      "name": "View Available Products",
+      "method": "GET",
+      "body": {},
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
     },
     {
       "_id": "req_agent_create_policy",
-      "parentId": "fld_agent",
-      "name": "POST Create Policy",
+      "parentId": "req_grp_agent",
+      "modified": 1698399600000,
+      "created": 1698399600000,
       "url": "{{ _.baseUrl }}/api/v1/agents/policies",
+      "name": "Create New Policy (Sell)",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"productId\": 1,\n\t\"clientFullName\": \"Test Client\",\n\t\"insuredValue\": 1200000\n}"
+        "text": "{\n\t\"clientId\": \"{{ _.clientId }}\",\n\t\"productId\": \"{{ _.productId }}\",\n\t\"vehicleValue\": 1500000\n}"
       },
-      "authentication": {"type": "bearer", "token": "{{ _.authToken }}"},
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
       "_type": "request"
+    },
+    {
+      "_id": "req_agent_upload_docs",
+      "parentId": "req_grp_agent",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/agents/policies/{{ _.policyId }}/documents",
+      "name": "Upload Client Documents",
+      "method": "POST",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "id": "pair_1",
+            "name": "client_id_or_kra",
+            "value": "",
+            "description": "Client's KRA PIN or National ID",
+            "type": "file",
+            "disabled": false
+          },
+          {
+            "id": "pair_2",
+            "name": "logbook",
+            "value": "",
+            "description": "Vehicle Logbook",
+            "type": "file",
+            "disabled": false
+          }
+        ]
+      },
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_agent_raise_claim",
+      "parentId": "req_grp_agent",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/agents/claims",
+      "name": "Raise a Claim",
+      "method": "POST",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "id": "pair_0",
+            "name": "policyId",
+            "value": "{{ _.policyId }}",
+            "description": "",
+            "disabled": false
+          },
+          {
+            "id": "pair_1",
+            "name": "police_abstract",
+            "value": "",
+            "type": "file",
+            "disabled": false
+          },
+          {
+            "id": "pair_2",
+            "name": "driving_license",
+            "value": "",
+            "type": "file",
+            "disabled": false
+          },
+          {
+            "id": "pair_3",
+            "name": "logbook",
+            "value": "",
+            "type": "file",
+            "disabled": false
+          },
+          {
+            "id": "pair_4",
+            "name": "photos",
+            "value": "",
+            "type": "file",
+            "disabled": false
+          }
+        ]
+      },
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_agent_view_wallet",
+      "parentId": "req_grp_agent",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/agents/wallet",
+      "name": "View Wallet Balance",
+      "method": "GET",
+      "body": {},
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_agent_download_cert",
+      "parentId": "req_grp_agent",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/agents/policies/{{ _.policyId }}/certificate",
+      "name": "Download Policy Certificate",
+      "method": "GET",
+      "body": {},
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_grp_payment",
+      "parentId": "wrk_1",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "name": "Payment Controller",
+      "description": "Handles MPESA STK Push and callbacks.",
+      "environment": {},
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_payment_stk_push",
+      "parentId": "req_grp_payment",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/payments/stk-push",
+      "name": "Request MPESA STK Push",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"policyId\": \"{{ _.policyId }}\",\n\t\"phoneNumber\": \"254712345678\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_payment_callback",
+      "parentId": "req_grp_payment",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/payments/mpesa-callback",
+      "name": "MPESA Callback (Webhook)",
+      "description": "This endpoint is called by Safaricom MPESA API upon payment completion.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"Body\": {\n\t\t\"stkCallback\": {\n\t\t\t\"MerchantRequestID\": \"some-id\",\n\t\t\t\"CheckoutRequestID\": \"another-id\",\n\t\t\t\"ResultCode\": 0,\n\t\t\t\"ResultDesc\": \"The service request is processed successfully.\"\n\t\t}\n\t}\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_grp_notifications",
+      "parentId": "wrk_1",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "name": "Notifications Controller",
+      "description": "Handles fetching notifications for the logged-in user.",
+      "environment": {},
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_notifications_get",
+      "parentId": "req_grp_notifications",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/notifications",
+      "name": "Get My Notifications",
+      "method": "GET",
+      "body": {},
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_auth_login', 'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "req_grp_datasharing",
+      "parentId": "wrk_1",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "name": "Data Sharing Controller",
+      "description": "API for external Insurance Companies to access data.",
+      "environment": {},
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_datasharing_get",
+      "parentId": "req_grp_datasharing",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "url": "{{ _.baseUrl }}/api/v1/data-sharing/transactions",
+      "name": "Get Agent Transactions (For Insurance Co.)",
+      "method": "GET",
+      "body": {},
+      "headers": [
+        {
+          "name": "X-API-KEY",
+          "value": "{{ _.insurance_co_api_key }}"
+        }
+      ],
+      "authentication": {},
+      "_type": "request"
+    },
+    {
+      "_id": "env_1",
+      "parentId": "wrk_1",
+      "modified": 1698399600000,
+      "created": 1698399600000,
+      "name": "Base Environment",
+      "data": {
+        "baseUrl": "http://localhost:8080",
+        "adminId": "1",
+        "userId": "2",
+        "superagentId": "3",
+        "agentUserId": "4",
+        "companyId": "1",
+        "productId": "1",
+        "policyId": "1",
+        "claimId": "1",
+        "clientId": "1",
+        "insurance_co_api_key": "paste-generated-key-here"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "baseUrl",
+          "adminId",
+          "userId",
+          "superagentId",
+          "agentUserId",
+          "companyId",
+          "productId",
+          "policyId",
+          "claimId",
+          "clientId",
+          "insurance_co_api_key"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1698399600000,
+      "_type": "environment"
     }
   ]
 }
